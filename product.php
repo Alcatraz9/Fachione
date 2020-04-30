@@ -153,11 +153,12 @@ session_start();
 					echo 
 						'<a href="#">
 						<form class="site-btn sb-white" id="form1" name="form1" method="post" action="cart.php">
-							<input type="hidden" name="pid" id="pid" value= "<?php echo $product->id;?>" />
+							<input type="hidden" name="pid" id="pid" value= "'.$product->id.'"/>
 							<input type="submit" name="button" class="site-btn" value="SHOP NOW" />
 						</form></a>';
 				
-					}?>
+					}
+					?>
 					
 					<div id="accordion" class="accordion-area">
 						<div class="panel">
