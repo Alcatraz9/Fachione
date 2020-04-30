@@ -45,7 +45,7 @@ else {
 		$total = $total + $price * $each_item['quantity'];
 			$cartOutput = $cartOutput.'<li>
 			<div class="pl-thumb"><img src="'.$image.'1.jpg" alt=""></div>
-			<h6>Animal Print Dress</h6>
+			<h6>'.$pname.'</h6>
 			<p>Rs.'.$price.' &ensp;&ensp;&ensp;Quantity: '.$each_item['quantity'].'</p>
 		</li>'; 
 			$i++;        
