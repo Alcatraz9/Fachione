@@ -9,12 +9,12 @@ if (!empty($_GET['placeOrder'])) {
     if (!empty($_SESSION['cart-array'])) {
 
         foreach ($_SESSION['cart-array'] as &$each_item) {
-            $result = mysqli_query($link, 'select * from product where id = ' . $each_item['item_id']);
-            while ($row = mysqli_fetch_array($result)) {
+            $result = pg_query($link, 'select * from product where id = ' . $each_item['item_id']);
+            while ($row = pg_fetch_array($result)) {
                 $quantity = $row['quantity'] - $each_item["quantity"];
             }
-            mysqli_query($link, 'update product set quantity=' . $quantity . ' where id = ' . $each_item["item_id"]);
-            mysqli_query($link, 'insert into orderdetail(userID,purchasedate) values(' . $userid . ',now())');
+            pg_query($link, 'update product set quantity=' . $quantity . ' where id = ' . $each_item["item_id"]);
+            pg_query($link, 'insert into orderdetail(userID,purchasedate) values(' . $userid . ',now())');
             unset($_SESSION['cart-array']);
         }
     }

@@ -9,9 +9,9 @@ if(!empty($_SESSION['id'])) {
 	require_once("php/connectDB.php");
 	$query = 'select * from userinfo where id=' . $id;
 
-	$result = mysqli_query($link, $query);
+	$result = pg_query($link, $query);
 
-	while ($row = mysqli_fetch_array($result)) {
+	while ($row = pg_fetch_array($result)) {
 		$city = $row['city'];
 		$state = $row['state'];
 		$zip = $row['zip'];
@@ -35,8 +35,8 @@ else {
 	foreach ($_SESSION['cart-array'] as &$each_item) {
 		
 		// echo "<h1>".$each_item['item_id']."</h1>";
-		$result = mysqli_query($link,'select * from product where id = '.$each_item['item_id']); 
-		while($row = mysqli_fetch_array($result)) {
+		$result = pg_query($link,'select * from product where id = '.$each_item['item_id']); 
+		while($row = pg_fetch_array($result)) {
 		$id = $row['id'];
 		$pname = $row['pname'];
 		$image = $row['image'];

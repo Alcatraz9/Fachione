@@ -42,8 +42,8 @@
         foreach ($_SESSION['cart-array'] as &$each_item) {
             
             // echo "<h1>".$each_item['item_id']."</h1>";
-            $result = mysqli_query($link,'select * from product where id = '.$each_item['item_id']); 
-            while($row = mysqli_fetch_array($result)) {
+            $result = pg_query($link,'select * from product where id = '.$each_item['item_id']); 
+            while($row = pg_fetch_array($result)) {
             $id = $row['id'];
             $pname = $row['pname'];
             $image = $row['image'];

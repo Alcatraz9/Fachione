@@ -11,23 +11,23 @@
         $gender = $_GET['gender'];
 
         if($gender == 'all') {
-            $result = mysqli_query($link,"select * from product where category='".$category."' order by added DESC"); 
+            $result = pg_query($link,"select * from product where category='".$category."' order by added DESC"); 
         } else if($gender == 'women') {
             if($category == 'all') {
-            $result = mysqli_query($link,"select * from product where gender='".$gender."' order by added DESC");
+            $result = pg_query($link,"select * from product where gender='".$gender."' order by added DESC");
             } else {
-                $result = mysqli_query($link,"select * from product where gender='".$gender."' and category='".$category."' order by added DESC");
+                $result = pg_query($link,"select * from product where gender='".$gender."' and category='".$category."' order by added DESC");
             }
         } else if($gender == 'men') {
             if($category == 'all') {
-            $result = mysqli_query($link,"select * from product where gender='".$gender."' order by added DESC");
+            $result = pg_query($link,"select * from product where gender='".$gender."' order by added DESC");
             } else {
-                $result = mysqli_query($link,"select * from product where gender='".$gender."' and category='".$category."' order by added DESC");
+                $result = pg_query($link,"select * from product where gender='".$gender."' and category='".$category."' order by added DESC");
             }
         }
-    if(mysqli_num_rows($result)>0) {
+    if(pg_num_rows($result)>0) {
 
-        while($row = mysqli_fetch_array($result)) {
+        while($row = pg_fetch_array($result)) {
             $id = $row['id'];
             $pname = $row['pname'];
             $image = $row['image'];

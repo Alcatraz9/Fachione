@@ -10,10 +10,10 @@
         $password = preg_replace('#[^A-Za-z0-9]#i','',$_SESSION['password']);
 
         require_once("../php/connectDB.php");
-        $query = 'SELECT * from account where username="ADMIN" and password="'.$password.'"';
-        $sql = mysqli_query($link, $query);
+        $query = "SELECT * from account where \"Username\"='admin' and password='".$password."'";
+        $sql = pg_query($link, $query);
 
-        $exists = mysqli_num_rows($sql);
+        $exists = pg_num_rows($sql);
     }
     if($exists == 0) {
         echo "SESSION DATA DOES NOT EXIST IN DATABASE";
@@ -43,12 +43,12 @@ if (array_key_exists("login", $_POST)) {
 
     require_once ("../php/connectDB.php");
 
-    $query = "select 'id' from admin where username = '" . $user . "' and password = '" . $passwd . "'";
+    $query = "select 'id' from admin where \"Username\" = '" . $user . "' and password = '" . $passwd . "'";
 
-    $result = mysqli_query($link, $query);
+    $result = pg_query($link, $query);
 
-    if (mysqli_num_rows($result)) {
-        while($row = mysqli_fetch_array($result)){
+    if (pg_num_rows($result)) {
+        while($row = pg_fetch_array($result)){
             $id = $row['id'];
         }
         $_SESSION['id'] = $id;
@@ -135,30 +135,30 @@ if (array_key_exists("login", $_POST)) {
         require_once ("../php/connectDB.php");
 
         // print_r($_POST);
-        $checkQuery = "select 'id' from admin where username = '" . $user . "';";
+        $checkQuery = "select 'id' from admin where \"Username\" = '" . $user . "';";
 
-        $checkResult = mysqli_query($link, $checkQuery);
+        $checkResult = pg_query($link, $checkQuery);
 
-        if (mysqli_num_rows($checkResult)) {
+        if (pg_num_rows($checkResult)) {
             echo "Username already taken.";
         } else {
 
-            $query = "insert into admin(username, password) values('" . $user . "','" . $passwd . "')";
-
-            if(mysqli_query($link, $query))
+            $query = "insert into admin(\"Username\", password) values('" . $user . "','" . $passwd . "') returning id";
+            $res = pg_query($link, $query);
+            if($res)
                 echo "<h1>Account Registered<br/></h1>";
-
-            $id = mysqli_insert_id($link);
+            $insert_row = pg_fetch_row($res);
+            $id = $insert_row[0];
             
 
             $query = "insert into admininfo(id, firstName, lastName, city, state, zip) values(" . $id .",'" . $fname . "','" . $lname . "','" . $city . "','" .$state . "','" . $zip . "')";
 
-            if(mysqli_query($link, $query))
+            if(pg_query($link, $query))
                 echo "<h1>Account Created. Login to Continue.</h1>";
 
         }
     }
-    mysqli_close($link);
+    pg_close($link);
 }
 
 

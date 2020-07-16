@@ -10,18 +10,18 @@ $manager = htmlspecialchars($_SESSION['manager']);
 $password = preg_replace('#[^A-Za-z0-9]#i', '', $_SESSION['password']);
 
 require_once("../php/connectDB.php");
-$query = 'SELECT id from admin where username="' . $manager . '" and password="' . $password . '"';
+$query = "SELECT id from admin where \"Username\"='" . $manager . "' and password='" . $password . "'";
 // echo $query;
-$sql = mysqli_query($link, $query);
-$exists = mysqli_num_rows($sql);
+$sql = pg_query($link, $query);
+$exists = pg_num_rows($sql);
 if ($exists) {
-    while ($row = mysqli_fetch_array($sql)) {
+    while ($row = pg_fetch_array($sql)) {
         $id = $row['id'];
     }
     $query = 'SELECT * from admininfo where id='.$id;
     // echo $query;
-    $sql = mysqli_query($link, $query);
-    while ($row = mysqli_fetch_array($sql)) {
+    $sql = pg_query($link, $query);
+    while ($row = pg_fetch_array($sql)) {
         $name = $row['firstName'];
     }
     $_SESSION['id'] = $id;
@@ -47,23 +47,24 @@ if ($exists) {
 <?php
 
 if (isset($_POST['product-name']) && $_POST['product-name'] != "") {
-    $product_name = mysqli_real_escape_string($link, $_POST['product-name']);
-    $price = mysqli_real_escape_string($link, $_POST['product-price']);
-    $category = mysqli_real_escape_string($link, $_POST['category']);
-    $for = mysqli_real_escape_string($link, $_POST['for']);
-    $quantity = mysqli_real_escape_string($link, $_POST['quantity']);
+    $product_name = pg_escape_string($link, $_POST['product-name']);
+    $price = pg_escape_string($link, $_POST['product-price']);
+    $category = pg_escape_string($link, $_POST['category']);
+    $for = pg_escape_string($link, $_POST['for']);
+    $quantity = pg_escape_string($link, $_POST['quantity']);
 
 
-    $sql = mysqli_query($link, "SELECT id from product where pname='" . $product_name . "'");
-    if (mysqli_num_rows($sql)) {
+    $sql = pg_query($link, "SELECT id from product where pname='" . $product_name . "'");
+    if (pg_num_rows($sql)) {
         printf("Product name already exists");
         exit();
     }
     // print_r($_POST);
 
-    $sql = mysqli_query($link, 'insert into product(category,gender,pname,quantity,price,added) values("' . $category . '","' . $for . '","' . $product_name . '",' . $quantity . ',' . $price . ',now())') or die(mysqli_error($link));
-    $pid = mysqli_insert_id($link);
-    $sql1 = mysqli_query($link, 'UPDATE product SET image = "img/single-product/' . $pid . '/" WHERE product.id = ' . $pid);
+    $sql = pg_query($link, 'insert into product(category,gender,pname,quantity,price,added) values("' . $category . '","' . $for . '","' . $product_name . '",' . $quantity . ',' . $price . ',now()) returning id') or die(pg_last_error($link));
+    $insert_row = pg_fetch_row($res);
+    $pid = $insert_row[0];
+    $sql1 = pg_query($link, 'UPDATE product SET image = "img/single-product/' . $pid . '/" WHERE product.id = ' . $pid);
     echo $sql1;
     $error = array();
     $extension = array("jpeg", "jpg", "png");
@@ -107,9 +108,9 @@ $product_list = '</br></br><table class="table ">
   </tr>
 </thead>
 <tbody>';
-$sql = mysqli_query($link, "select * from product order by added DESC");
-if (mysqli_num_rows($sql)) {
-    while ($row = mysqli_fetch_array($sql)) {
+$sql = pg_query($link, "select * from product order by added DESC");
+if (pg_num_rows($sql)) {
+    while ($row = pg_fetch_array($sql)) {
         $id = $row['id'];
         $product_name = $row['pname'];
         $price = $row['price'];
@@ -155,7 +156,7 @@ function delete_files($target)
 
 if (isset($_GET['yesdelete'])) {
     $id_to_delete = $_GET['yesdelete'];
-    $sql = mysqli_query($link, 'Delete from product where id=' . $id_to_delete) or die(mysqli_error($link));
+    $sql = pg_query($link, 'Delete from product where id=' . $id_to_delete) or die(pg_last_error($link));
     delete_files('../img/single-product/' . $id_to_delete . '/');
     /* 
         * php delete function that deals with directories recursively

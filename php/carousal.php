@@ -4,11 +4,11 @@
 
     $dynamicList = "";
 
-    $result = mysqli_query($link,"select * from product order by id DESC LIMIT 5 "); 
+    $result = pg_query($link,"select * from product order by id DESC LIMIT 5 "); 
 
-    if(mysqli_num_rows($result)>0) {
+    if(pg_num_rows($result)>0) {
 
-        while($row = mysqli_fetch_array($result)) {
+        while($row = pg_fetch_array($result)) {
             $id = $row['id'];
             $pname = $row['pname'];
             $image = $row['image'];
@@ -41,7 +41,7 @@
 
     
 
-    // mysqli_close($link);
+    // pg_close($link);
 
 
 
