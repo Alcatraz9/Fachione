@@ -22,6 +22,7 @@ if (array_key_exists("login", $_POST)) {
 
     $query = "select id from account where username = '" . mysqli_real_escape_string($link, $user) . "' and password = '" . mysqli_real_escape_string($link, $passwd) . "'";
     $result = mysqli_query($link, $query);
+    $id=0;
     if (mysqli_num_rows($result)) {
         while ($row = mysqli_fetch_array($result)) {
             $id = $row['id'];

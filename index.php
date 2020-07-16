@@ -5,7 +5,7 @@ session_start();
 ?>
 
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="en">
 
 <head>
 	<title>Fachione</title>
