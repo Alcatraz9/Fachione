@@ -166,7 +166,7 @@ if (array_key_exists("login", $_POST)) {
 
     <title>Login / Sign Up</title>
 
-    <!-- <base href="http://localhost:8081/Fachione/"> -->
+    <base href="https://fachione.herokuapp.com/">
 
     <!-- Styles -->
     <link href="admin/assets/css/lib/bootstrap.min.css" rel="stylesheet">

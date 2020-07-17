@@ -35,7 +35,7 @@
 								<div class="lp-thumb set-bg" data-setbg="img/blog-thumbs/1.jpg"></div>
 								<div class="lp-content">
 									<h6>what shoes to wear</h6>
-									<span>Oct 21, 2018</span>
+									<span>May 21, 2020</span>
 									<a href="#" class="readmore">Read More</a>
 								</div>
 							</div>
@@ -43,7 +43,7 @@
 								<div class="lp-thumb set-bg" data-setbg="img/blog-thumbs/2.jpg"></div>
 								<div class="lp-content">
 									<h6>trends this year</h6>
-									<span>Oct 21, 2018</span>
+									<span>May 21, 2020</span>
 									<a href="#" class="readmore">Read More</a>
 								</div>
 							</div>
