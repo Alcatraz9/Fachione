@@ -9,11 +9,11 @@ $manager = $_SESSION['manager'];
 $password = preg_replace('#[^A-Za-z0-9]#i', '', $_SESSION['password']);
 
 require_once("../php/connectDB.php");
-$query = 'SELECT * from admin where username="' . $manager . '" and password="' . $password . '"';
-$sql = mysqli_query($link, $query);
-$exists = mysqli_num_rows($sql);
+$query = "SELECT * from admin where \"Username\"='" . $manager . "' and password='" . $password."'";
+$sql = pg_query($link, $query);
+$exists = pg_num_rows($sql);
 if ($exists) {
-    while ($row = mysqli_fetch_array($sql)) {
+    while ($row = pg_fetch_array($sql)) {
         $id = $row['id'];
     }
     $_SESSION['id'] = $id;
@@ -37,16 +37,16 @@ if ($exists) {
 <?php
 
 if (isset($_POST['product-name'])) {
-    $pid = mysqli_real_escape_string($link, $_POST['thisID']);
-    $product_name = mysqli_real_escape_string($link, $_POST['product-name']);
-    $price = mysqli_real_escape_string($link, $_POST['product-price']);
-    $category = mysqli_real_escape_string($link, $_POST['category']);
-    $for = mysqli_real_escape_string($link, $_POST['for']);
-    $quantity = mysqli_real_escape_string($link, $_POST['quantity']);
+    $pid = pg_escape_string($link, $_POST['thisID']);
+    $product_name = pg_escape_string($link, $_POST['product-name']);
+    $price = pg_escape_string($link, $_POST['product-price']);
+    $category = pg_escape_string($link, $_POST['category']);
+    $for = pg_escape_string($link, $_POST['for']);
+    $quantity = pg_escape_string($link, $_POST['quantity']);
 
     // $test = "UPDATE product set pname='$product_name', price='$price', category='$category', gender='$for', quantity='$quantity' where id=$pid";
     // echo $test;
-    $sql = mysqli_query($link, "UPDATE product set pname='$product_name', price='$price', category='$category', gender='$for', quantity='$quantity' where id=$pid");
+    $sql = pg_query($link, "UPDATE product set pname='$product_name', price='$price', category='$category', gender='$for', quantity='$quantity' where id=$pid");
 
     if ($_FILES["image"]["tmp_name"] != "") {
         $error = array();
@@ -84,9 +84,9 @@ if (isset($_POST['product-name'])) {
 
 if (isset($_GET['pid'])) {
     $targetID = $_GET['pid'];
-    $sql = mysqli_query($link, "select * from product where id=" . $targetID);
-    if (mysqli_num_rows($sql)) {
-        while ($row = mysqli_fetch_array($sql)) {
+    $sql = pg_query($link, "select * from product where id=" . $targetID);
+    if (pg_num_rows($sql)) {
+        while ($row = pg_fetch_array($sql)) {
             $eproduct_name = $row['pname'];
             $eprice = $row['price'];
             $ecategory = $row['category'];

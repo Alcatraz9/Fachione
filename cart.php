@@ -73,8 +73,8 @@ if(isset($_POST['item_to_adjust']) && $_POST['item_to_adjust'] != "") {
 <head>
 	<title>Fachione | Cart</title>
 	<meta charset="UTF-8">
-	<meta name="description" content="Fachione | eCommerce Template">
-	<meta name="keywords" content="fachione, eCommerce, creative, html">
+	<meta name="description" content=" Fachione | Dummy eCommerce Website">
+	<meta name="keywords" content="fachione, eCommerce, fashion, html">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Favicon -->
 	<link href="img/favicon.ico" rel="shortcut icon"/>

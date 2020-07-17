@@ -27,7 +27,7 @@ if (array_key_exists("login", $_POST)) {
         while ($row = pg_fetch_array($result)) {
             $id = $row['id'];
         }
-        $query = "select firstName from userinfo where id = " . $id;
+        $query = "select \"firstName\" from userinfo where id = " . $id;
         $result = pg_query($link, $query);
     }
 
@@ -135,15 +135,15 @@ if (array_key_exists("login", $_POST)) {
         if (pg_num_rows($checkResult)) {
             echo "Username already taken.";
         } else {
-
-            $query = "insert into account(\"Username\", password) values('" . $user . "','" . $passwd . "') returning id";
-            $res = pg_query($link, $query);
-            if ($res)
+            $res = pg_query($link, "select max(id) from account");
+            $row = pg_fetch_array($res);
+            $id = $row['max'];
+            $id = $id + 1;
+            $query = "insert into account( id,\"Username\", password) values( ".$id.",'" . $user . "','" . $passwd . "')";
+            if (pg_query($link, $query))
                 echo "<h1>Account Registered<br/></h1>";
-            $insert_row = pg_fetch_row($res);
-            $id = $insert_row[0];
 
-            $query = "insert into userinfo(id, firstName, lastName, city, state, zip) values(" . $id . ",'" . $fname . "','" . $lname . "','" . $city . "','" . $state . "'," . $zip . ")";
+            $query = "insert into userinfo(id, \"firstName\", \"lastName\", city, state, zip) values(".$id.",'" . $fname . "','" . $lname . "','" . $city . "','" . $state . "'," . $zip . ")";
 
             if (pg_query($link, $query))
                 echo "<h1>Account Created. Login to Continue.</h1>";
@@ -166,7 +166,7 @@ if (array_key_exists("login", $_POST)) {
 
     <title>Login / Sign Up</title>
 
-    <base href="https://fachione.herokuapp.com/">
+    <base href="http://localhost:8081/Fachione/">
 
     <!-- Styles -->
     <link href="admin/assets/css/lib/bootstrap.min.css" rel="stylesheet">
