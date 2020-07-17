@@ -3,7 +3,7 @@ Access live page at: https://fachione.herokuapp.com/
 <h2>Description</br></h2>
 This is a dummy E-Commerce website with basic functions as follows :- </br>
     &ensp;&ensp;&ensp;- It has a login / sign-up page for its users </br>
-    &ensp;&ensp;&ensp;- It has a hidden login / sign-up page for admins which can be accessed from User login page by logging into an account with username "admin" and password "admin" </br>
+    &ensp;&ensp;&ensp;- It has a hidden login / sign-up page for admins which can be accessed from User login page by logging into an account with a secret username and password </br>
     &ensp;&ensp;&ensp;- Admin can view, edit item details(eg. name, picture, category etc.) and add new items to inventory </br>
     &ensp;&ensp;&ensp;- Most recent additions to inventory is displayed in "Latest Products" section on Homepage </br>
    &ensp;&ensp;&ensp;- Items are filtered by gender and category </br>
