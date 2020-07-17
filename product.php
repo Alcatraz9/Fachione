@@ -28,7 +28,7 @@ session_start();
 	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
 
 
-	<base href="http://localhost:8081/Fachione/">
+	<!-- <base href="http://localhost:8081/Fachione/"> -->
 
 
 	<!-- Stylesheets -->
@@ -51,9 +51,9 @@ session_start();
 
 <body>
 	<!-- Page Preloder -->
-	<!-- <div id="preloder">
+	<div id="preloder">
 		<div class="loader"></div>
-	</div> -->
+	</div>
 
 	<!-- header tag -->
 

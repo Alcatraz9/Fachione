@@ -175,7 +175,7 @@ if (array_key_exists("login", $_POST)) {
 
     <title>[ADMIN]Login / Sign Up</title>
 
-    <base href="http://localhost:8081/Fachione/">
+    <!-- <base href="http://localhost:8081/Fachione/"> -->
 
     <!-- Styles -->
     <link href="admin/assets/css/lib/bootstrap.min.css" rel="stylesheet">
