@@ -41,7 +41,7 @@
         }
 
     } else {
-        $AllList = "No product available";
+        $AllList = pg_num_rows($result);
     }
 
     
